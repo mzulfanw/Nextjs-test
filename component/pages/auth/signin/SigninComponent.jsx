@@ -5,12 +5,12 @@ import SiginForm from './SiginForm'
 import { useForm } from 'hooks'
 import Button from '@/component/shared/Button'
 import { formatEmail } from '@/lib/helper'
+import Link from 'next/link'
 
 function SigninComponent({
   authentication = () => { }
 }) {
-  // eslint-disable-next-line no-unused-vars
-  const [initialState, setInitialState] = useState({
+  const [initialState] = useState({
     email: '',
     password: ''
   })
@@ -64,7 +64,16 @@ function SigninComponent({
           errors={errors}
           onChange={handleInputChange}
         />
-        <div className='mb-5'>
+        <div className='text-center hover:text-sky-600'>
+          <Link
+            href='/auth/sign-up'
+            shallow
+            className='border-b-2 border-black'
+          >
+            {`Don't have an account? you can make it here`}
+          </Link>
+        </div>
+        <div className='mt-5'>
           <Button
             title='Login'
             onClick={onSubmit}

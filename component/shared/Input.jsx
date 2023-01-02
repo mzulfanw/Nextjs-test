@@ -16,7 +16,7 @@ function Input({
         name={name}
         value={value}
         onChange={onChange}
-        className={`px-2 py-2 border-2 ${error ? 'border-red-700' : 'border-lime-700'} focus:outline-none w-full rounded-md font-display mb-2`}
+        className={`px-2 py-2 border-2 ${error ? 'border-red-700' : 'border-gray-700'} focus:outline-none w-full rounded-md font-display mb-2`}
         {...otherProps}
       />
       {

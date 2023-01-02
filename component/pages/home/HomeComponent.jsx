@@ -3,8 +3,18 @@ import React from 'react'
 import Layout from '@/component/core/Layout'
 import Picture from '@/component/shared/Picture'
 import Button from '@/component/shared/Button'
+import withAuth from 'hoc/withAuth'
+import PropTypes from 'prop-types'
+import { useRouter } from 'next/router'
 
-function HomeComponent() {
+function HomeComponent({
+  token
+}) {
+  const router = useRouter()
+
+  const handleRouteChange = (path) => {
+    router.push(path, null, { shallow: true })
+  }
   return (
     <Layout>
       <section
@@ -19,14 +29,24 @@ function HomeComponent() {
             — Oprah Winfrey
           </p>
           <div className='flex gap-x-5'>
-            <Button
-              title='Sign in'
-              className='mt-5'
-            />
-            <Button
-              title='Sign up'
-              className='mt-5'
-            />
+            {
+              typeof token === 'undefined' && (
+                <Button
+                  title='Sign in'
+                  className='mt-5 w-full md:w-1/3'
+                  onClick={() => { handleRouteChange('/auth/sign-in') }}
+                />
+              )
+            }
+            {
+              typeof token !== 'undefined' && (
+                <Button
+                  title='View User'
+                  className='mt-5 w-full md:w-1/3'
+                  onClick={() => { handleRouteChange('/users?page=1&per_page=4') }}
+                />
+              )
+            }
           </div>
         </div>
         <div className='basis-1/2 px-10 py-10 bg-lime-200 border-l-2 border-l-black border-b-2 border-b-black'>
@@ -43,4 +63,8 @@ function HomeComponent() {
   )
 }
 
-export default HomeComponent
+HomeComponent.propTypes = {
+  token: PropTypes.string
+}
+
+export default withAuth(HomeComponent)

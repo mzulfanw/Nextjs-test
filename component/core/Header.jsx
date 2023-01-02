@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { navigation } from '@/lib/navigation'
-import { HamburgerIcon } from '../shared/Icons'
+import { HamburgerIcon, CloseIcon } from '../shared/Icons'
 import { useRouter } from 'next/router'
 import withAuth from 'hoc/withAuth'
 import PropTypes from 'prop-types'
@@ -25,7 +25,7 @@ function Header({
     <header className='fixed top-0 px-10 py-5 bg-white/30 backdrop-blur-md w-full z-50'>
       <nav className='flex justify-between'>
         <h1 className='font-display text-2xl basis-1/5'>Freelance.</h1>
-        <ul className='flex items-center justify-between md:basis-1/3'>
+        <ul className='flex items-center justify-between md:basis-1/4'>
           {
             navigation?.filter(item => item.requireAuth === false && typeof token === 'undefined').map((item, index) => (
               <div
@@ -60,7 +60,13 @@ function Header({
             className='block md:hidden cursor-pointer'
             onClick={() => setIsOpen(!isOpen)}
           >
-            <HamburgerIcon />
+            {
+              isOpen ? (
+                <CloseIcon />
+              ) : (
+                <HamburgerIcon />
+              )
+            }
           </div>
         </ul>
       </nav>
