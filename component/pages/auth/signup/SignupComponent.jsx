@@ -2,10 +2,14 @@ import React, { useState } from 'react'
 import Layout from '@/component/core/Layout'
 import SignupForm from './SignupForm'
 import { useForm } from 'hooks'
+import PropTypes from 'prop-types'
+import Button from '@/component/shared/Button'
+import { formatEmail } from '@/lib/helper'
 
-function SignupComponent() {
-
-  const [initialState, setInitialState] = useState({
+function SignupComponent({
+  register = () => { }
+}) {
+  const [initialState] = useState({
     email: '',
     password: ''
   })
@@ -14,7 +18,13 @@ function SignupComponent() {
     const temp = { ...errors }
 
     if ('email' in fieldOfValues)
-      temp.email = fieldOfValues.email ? '' : 'email tidak boleh kosong'
+      temp.email = fieldOfValues.email
+        ? (
+          formatEmail(fieldOfValues.email)
+            ? ''
+            : 'Format email tidak sesuai, xxxx@gmail.com'
+        )
+        : 'email tidak boleh kosong'
 
     if ('password' in fieldOfValues)
       temp.password = fieldOfValues.password ? '' : 'Password tidak boleh kosong'
@@ -34,6 +44,14 @@ function SignupComponent() {
     handleInputChange
   } = useForm(initialState, true, validate)
 
+  const onSubmit = () => {
+    const payload = {
+      email: values.email,
+      password: values.password
+    }
+    register(payload)
+  }
+
   return (
     <Layout>
       <section className='w-full md:max-w-lg block mx-auto'>
@@ -42,9 +60,19 @@ function SignupComponent() {
           errors={errors}
           onChange={handleInputChange}
         />
+        <div className='mb-5'>
+          <Button
+            title='Register'
+            onClick={onSubmit}
+          />
+        </div>
       </section>
     </Layout>
   )
+}
+
+SignupComponent.propTypes = {
+  register: PropTypes.func
 }
 
 export default SignupComponent

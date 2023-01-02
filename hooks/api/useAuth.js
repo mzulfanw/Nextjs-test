@@ -27,7 +27,8 @@ export const useRegister = () => {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(api.register, {
     onSuccess: data => {
-      console.log(data)
+      setCookie('ftoken', data.token)
+      Router.back()
     },
     onError: (error) => {
       console.log('error', error)

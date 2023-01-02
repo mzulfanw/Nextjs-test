@@ -18,7 +18,7 @@ function Button({
 }) {
   return (
     <button
-      className={`px-5 py-2 bg-slate-800 rounded-md hover:border-b-lime-300 hover:border-r-lime-300 hover:border-b-2 hover:border-r-2 hover:text-white text-white font-display ${className} w-full`}
+      className={`px-5 py-2 bg-slate-800 rounded-md hover:border-b-lime-300 hover:border-r-lime-300 hover:border-b-4 hover:border-r-4 transition ease-in-out hover:transition-all text-white font-display ${className} w-full`}
       type={type}
       onClick={onClick}
     >

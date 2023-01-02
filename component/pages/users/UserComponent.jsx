@@ -37,7 +37,7 @@ function UserComponent({
               data?.data?.map((item, index) => (
                 <div
                   key={index}
-                  className='w-full md:w-1/3'
+                  className='w-full md:w-1/3 cursor-pointer border-4 border-double border-red-800 rounded-tl-3xl rounded-br-3xl'
                   onClick={() => { handleChangePage(item) }}
                 >
                   <Card
