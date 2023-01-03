@@ -4,18 +4,19 @@ import { HamburgerIcon, CloseIcon } from '../shared/Icons'
 import { useRouter } from 'next/router'
 import withAuth from 'hoc/withAuth'
 import PropTypes from 'prop-types'
-import { deleteCookie } from 'cookies-next'
+import { useDestroySession } from 'hooks/api/useAuth'
 
 function Header({
   token
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
+  let currentRoute = router.asPath
+  const { mutate } = useDestroySession()
 
   const handleChangeRouter = (item) => {
     if (item.type === 'func') {
-      deleteCookie('ftoken')
-      router.reload()
+      mutate()
     } else {
       router.push(item.route, null, { shallow: true })
     }
@@ -34,7 +35,7 @@ function Header({
                 onClick={() => { handleChangeRouter(item) }}
               >
                 <li
-                  className='font-display'
+                  className={`font-display ${currentRoute === item.route ? 'border-b-2 border-black' : ''}`}
                 >
                   {item.name}
                 </li>
@@ -49,7 +50,7 @@ function Header({
                 onClick={() => { handleChangeRouter(item) }}
               >
                 <li
-                  className='font-display'
+                  className={`font-display ${currentRoute === item.route ? 'border-b-2 border-black' : ''}`}
                 >
                   {item.name}
                 </li>
@@ -81,7 +82,7 @@ function Header({
                   onClick={() => { handleChangeRouter(item) }}
                 >
                   <li
-                    className='font-display list-none text-center text-xl'
+                    className={`font-display list-none text-center text-xl ${currentRoute === item.route ? 'border-b-2 border-black' : ''}`}
                   >
                     {item.name}
                   </li>
@@ -96,7 +97,7 @@ function Header({
                   onClick={() => { handleChangeRouter(item) }}
                 >
                   <li
-                    className='font-display list-none text-center text-xl'
+                    className={`font-display list-none text-center text-xl ${currentRoute === item.route ? 'border-b-2 border-black' : ''}`}
                   >
                     {item.name}
                   </li>

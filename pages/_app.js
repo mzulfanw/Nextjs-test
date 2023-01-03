@@ -7,6 +7,7 @@ import { config } from '@/lib/react-query-helper'
 import Head from 'next/head'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import '../styles/globals.css'
+import { Toaster } from 'react-hot-toast'
 
 function MyApp({
   Component,
@@ -24,7 +25,11 @@ function MyApp({
       <Hydrate
         state={pageProps.dehydratedState}
       >
-
+        <Toaster
+          position='top-right'
+          reverseOrder={false}
+          containerStyle={{ top: '90px' }}
+        />
         <Component {...pageProps} />
         <ReactQueryDevtools initialIsOpen={false} />
       </Hydrate>

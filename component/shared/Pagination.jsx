@@ -12,7 +12,7 @@ function Pagination({
     <div className='flex flex-col md:flex-row justify-between items-center'>
       <p className='font-display'>Page: {pagination?.page} - Total Pages: {pagination?.total_pages}</p>
       <div className='basis-1/6 mt-10 md:mt-0'>
-        <ul className='flex justify-between gap-5 md:gap-0 items-center'>
+        <ul className='flex justify-between gap-5 md:gap-5 items-center'>
           {
             convertPages.map((_, i) => (
               <li

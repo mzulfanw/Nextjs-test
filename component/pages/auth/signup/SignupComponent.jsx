@@ -22,12 +22,12 @@ function SignupComponent({
         ? (
           formatEmail(fieldOfValues.email)
             ? ''
-            : 'Format email tidak sesuai, xxxx@gmail.com'
+            : 'Format email not match, example: xxx@xxx.com'
         )
-        : 'email tidak boleh kosong'
+        : 'Email is required'
 
     if ('password' in fieldOfValues)
-      temp.password = fieldOfValues.password ? '' : 'Password tidak boleh kosong'
+      temp.password = fieldOfValues.password ? '' : 'Password is required'
 
     setErrors({
       ...temp
@@ -49,7 +49,10 @@ function SignupComponent({
       email: values.email,
       password: values.password
     }
-    register(payload)
+
+    if (validate()) {
+      register(payload)
+    }
   }
 
   return (

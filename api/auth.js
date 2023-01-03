@@ -11,3 +11,9 @@ export const register = async (payload) => {
 
   return data
 }
+
+export const logout = async () => {
+  const logout = await services.post('/logout')
+
+  return logout
+}
