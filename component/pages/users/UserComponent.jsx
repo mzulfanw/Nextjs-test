@@ -10,7 +10,6 @@ function UserComponent({
   pageActive
 }) {
   const router = useRouter()
-
   const pagination = {
     page: data?.page,
     per_page: data?.per_page,
@@ -18,8 +17,8 @@ function UserComponent({
     total_pages: data?.total_pages
   }
 
-  const handleChangePage = (params) => {
-    router.push(`/users/${params.id}`, null, { shallow: true })
+  const handleChangePage = (id) => {
+    router.push(`/users/${id}`, null, { shallow: true })
   }
 
   const handlePagination = (page) => {
@@ -37,12 +36,13 @@ function UserComponent({
               data?.data?.map((item, index) => (
                 <div
                   key={index}
-                  className='w-full md:w-1/3 cursor-pointer border-4 border-double border-red-800 rounded-tl-3xl rounded-br-3xl'
-                  onClick={() => { handleChangePage(item) }}
+                  className={`w-full md:w-1/3 cursor-pointer `}
                 >
                   <Card
                     name={`${item.first_name} ${item.last_name}`}
                     path={item.avatar}
+                    id={item.id}
+                    onClickPath={handleChangePage}
                   />
                 </div>
               ))

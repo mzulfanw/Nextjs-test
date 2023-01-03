@@ -16,7 +16,7 @@ function SiginForm({
           error={errors.email}
           onChange={onChange}
           label='Email'
-          placeholder='Masukan Email'
+          placeholder='Enter Email'
         />
       </div>
       <div className='mb-5'>
@@ -26,7 +26,7 @@ function SiginForm({
           error={errors.password}
           onChange={onChange}
           label='Password'
-          placeholder='Masukan Password'
+          placeholder='Enter Password'
           type='password'
         />
       </div>

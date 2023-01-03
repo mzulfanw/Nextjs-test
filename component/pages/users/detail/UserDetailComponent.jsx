@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import Layout from '@/component/core/Layout'
 import { useRouter } from 'next/router'
@@ -7,12 +7,20 @@ import UserDetailToolbar from './UserDetailToolbar'
 import { ThumbsDownIcon, ThumbsUpIcon } from '@/component/shared/Icons'
 import withAuth from 'hoc/withAuth'
 import Button from '@/component/shared/Button'
+import { toast } from 'react-hot-toast'
 
 function UserDetailComponent({
   detail,
   token
 }) {
   const router = useRouter()
+  const [like, setLike] = useState(false)
+
+  const handleLiked = () => {
+    toast.success(`Success ${like ? 'unlike' : 'like'} ${detail?.first_name} ${detail?.last_name}`)
+    setLike(prev => !prev)
+  }
+
   return (
     <Layout>
       <section>
@@ -32,14 +40,9 @@ function UserDetailComponent({
         <div className='flex justify-center gap-10 items-center'>
           {
             typeof token !== 'undefined' && (
-              <>
-                <div className='cursor-pointer'>
-                  <ThumbsUpIcon />
-                </div>
-                <div className='cursor-pointer'>
-                  <ThumbsDownIcon />
-                </div>
-              </>
+              <div className={`cursor-pointer ${like ? 'border-b-2 border-lime-600' : ''}`} onClick={handleLiked}>
+                {like ? <ThumbsUpIcon /> : <ThumbsDownIcon />}
+              </div>
             )
           }
           {
@@ -48,6 +51,7 @@ function UserDetailComponent({
                 <Button
                   title='Like / Dislike is protected : ('
                   className='mb-5'
+                  onClick={() => { router.push('/auth/sign-in', null, { shalow: true }) }}
                 />
                 <p className='font-display'>Note: to unlock this feature you need to login</p>
               </div>
