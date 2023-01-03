@@ -15,7 +15,9 @@ export const useAuthentication = () => {
       })
     },
     onError: (error) => {
-      console.log('error', error)
+      toast.error(`${error.response.data.error}`, {
+        duration: 4000
+      })
     },
     onSettled: () => {
       queryClient.invalidateQueries('login')
